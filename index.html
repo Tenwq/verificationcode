@@ -65,12 +65,13 @@
             display: flex;
             -webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}
         .yzm-code-list2 .vw-code{
-            position: relative;font-size:1rem;width:2.0625rem;height:2.0625rem;display:inline-block;border:1px solid #e0e0e0;border-radius:3px;text-align:center;}
+            position: relative;font-size:1rem;width:2.0625rem;height:2.0625rem;display:inline-block;border:1px solid #e0e0e0;border-radius:3px;text-align:center;line-height:2.0625rem;}
         .vw-code.focus:after,
         .vw-code.wait:after{content:"";
-            display: block;width: 1px;
+            display: block;width:3px;
             height: 60%;
-            border-left:2px solid #007cff;
+            background-color:#007cff;
+            border-radius:3px;
             position: absolute;
             top: 0;
             bottom: 0;
@@ -81,10 +82,10 @@
         }
         @keyframes blink {
             0%, 100% {
-                border-left-color:#007cff;
+                background-color:#007cff;
             }
             50% {
-                border-left-color:transparent;/* not #aaa because it's seem there is Google Chrome bug */
+                background-color:transparent;/* not #aaa because it's seem there is Google Chrome bug */
             }
         }
         .yzm-code-list2 .current{border-color:#ffa200;}
@@ -122,12 +123,36 @@
     <script src="jquery-1.8.3.js"></script>
     <script>
         $(function () {
-            $(".ver-code").on("focus",function () {
+            $(".ver-code").on("focus",function (e) {
                 $(".vw-codes").children().eq(0).addClass("focus");
-            }).on("keyup",function () {
+            }).on("keyup",function (e) {
+                var e = event || window.event || arguments.callee.caller.arguments[0];
                 var $this = $(this);
                 var $val  = $this.val();
-                $(".vw-codes").children(".vw-code").eq(0).removeClass("focus").text($val);
+                var keyCode = e && e.keyCode;
+                console.log(keyCode);
+                if(keyCode >= 65 && keyCode <= 90){
+
+                }
+                if(keyCode != 8){
+                    if($val.length == 1){
+                        $(".vw-codes").children(".vw-code").eq(0).removeClass("wait focus").text($val);
+                        $(".vw-codes").children(".vw-code").eq(1).addClass("focus");
+                    }else if($val.length == 2){
+                        $(".vw-codes").children(".vw-code").eq(1).removeClass("wait focus").text($val.substring(1,2));
+                        $(".vw-codes").children(".vw-code").eq(2).addClass("focus");
+                    }else if($val.length == 3){
+                        $(".vw-codes").children(".vw-code").eq(2).removeClass("wait focus").text($val.substring(2,3));
+                        $(".vw-codes").children(".vw-code").eq(3).addClass("focus");
+                    }else if($val.length == 4){
+                        $(".vw-codes").children(".vw-code").eq(3).removeClass("wait focus").text($val.substring(3,4));
+                    }
+                }else{
+                    for(var i = 0;i<$val.length;i++){
+                        $(".vw-codes").children(".vw-code").eq(i).text("");
+                    }
+                }
+
             });
         })
     </script>
