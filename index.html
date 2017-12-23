@@ -48,7 +48,7 @@
 
         .yzm-code-con{width:15rem;margin:20% auto;background-color:#fff;border-radius:0.3125rem;}
         .yzm-code-con h4{height:2.8125rem;font-size:1rem;line-height:2.8125rem;color:#fff;text-align:center;background-image:url(../img/yanzhema-title.png);background-size:/*15.0625rem 2.8125rem*/contain;background-position:center;}
-        .yzm-code-body{padding:0.9375rem 0 0 1.5625rem;}
+        .yzm-code-body{padding:0.9375rem 1.5625rem;}
         .yzm-code-list1 img{width:5.9375rem;height:2.25rem;}
         .yzm-code-list1  a{display: inline-block;
             /* padding-top: 1rem; */
@@ -57,8 +57,36 @@
             margin-left: 1.5rem;
             height: 2.25rem;
             line-height: 2.25rem;}
-        .yzm-code-list2{margin-top:0.9375rem;font-size:0;}
-        .yzm-code-list2 input{font-size:1rem;width:2.0625rem;height:2.0625rem;display:inline-block;border:1px solid #e0e0e0;border-radius:3px;text-align:center;}
+        .yzm-code-list2{margin-top:0.9375rem;position:relative;}
+        .yzm-code-list2 p{display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+            display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+            display: -ms-flexbox; /* TWEENER - IE 10 */
+            display: -webkit-flex; /* NEW - Chrome */
+            display: flex;
+            -webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}
+        .yzm-code-list2 .vw-code{
+            position: relative;font-size:1rem;width:2.0625rem;height:2.0625rem;display:inline-block;border:1px solid #e0e0e0;border-radius:3px;text-align:center;}
+        .vw-code.focus:after,
+        .vw-code.wait:after{content:"";
+            display: block;width: 1px;
+            height: 60%;
+            border-left:2px solid #007cff;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            animation: blink 1s infinite steps(1, start);
+        }
+        @keyframes blink {
+            0%, 100% {
+                border-left-color:#007cff;
+            }
+            50% {
+                border-left-color:transparent;/* not #aaa because it's seem there is Google Chrome bug */
+            }
+        }
         .yzm-code-list2 .current{border-color:#ffa200;}
         .yzm-code-list2 input+input{margin-left:1.125rem;}
         .yzm-code-footer{padding:0.9375rem 0;overflow:hidden;text-align:center;}
@@ -66,6 +94,7 @@
         .yzm-code-footer a{color:#666;}
         .yzm-code-footer a:last-child{color:#ffa800;}
         .yzm-code-footer a+a{border-left:1px solid #e0e0e0;}
+        .ver-code{position:absolute;width:100%;height:2.188rem;opacity:0;border:0;top:0;left:0;}
     </style>
 </head>
 <body>
@@ -78,16 +107,30 @@
                 <a href="javascript:;" onclick="flushCode()">换一换</a>
             </div>
             <div class="yzm-code-list2">
+                <!--<input type="text" name="code[]" class="now" maxlength="1">
                 <input type="text" name="code[]" class="now" maxlength="1">
                 <input type="text" name="code[]" class="now" maxlength="1">
-                <input type="text" name="code[]" class="now" maxlength="1">
-                <input type="text" name="code[]" class="now" maxlength="1">
+                <input type="text" name="code[]" class="now" maxlength="1">-->
+                <p class="vw-codes"><span class="vw-code wait"></span><span class="vw-code"></span><span class="vw-code"></span><span class="vw-code"></span></p>
+                <input type="text" name="code" class="ver-code" maxlength="4" />
             </div>
         </div>
         <div class="yzm-code-footer">
             <a class="cancal-btn" href="javascript:;">取消</a> <a class="confirm-btn" href="javascript:;">确定</a>
         </div>
     </div>
+    <script src="jquery-1.8.3.js"></script>
+    <script>
+        $(function () {
+            $(".ver-code").on("focus",function () {
+                $(".vw-codes").children().eq(0).addClass("focus");
+            }).on("keyup",function () {
+                var $this = $(this);
+                var $val  = $this.val();
+
+            });
+        })
+    </script>
 </div>
 </body>
 </html>
