@@ -127,7 +127,7 @@
             }).on("keyup",function () {
                 var $this = $(this);
                 var $val  = $this.val();
-
+                $(".vw-codes").children(".vw-code").eq(0).removeClass("focus").text($val);
             });
         })
     </script>
