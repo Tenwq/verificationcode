@@ -95,7 +95,9 @@
         .yzm-code-footer a{color:#666;}
         .yzm-code-footer a:last-child{color:#ffa800;}
         .yzm-code-footer a+a{border-left:1px solid #e0e0e0;}
-        .ver-code{position:absolute;width:100%;height:2.188rem;opacity:0;border:0;top:0;left:0;}
+        .ver-code{position:absolute;width:100%;height:2.188rem;opacity:0;border:0;top:-9999px;left:0;
+            background-color:transparent;
+            color: transparent;}
     </style>
 </head>
 <body>
@@ -123,6 +125,9 @@
     <script src="jquery-1.8.3.js"></script>
     <script>
         $(function () {
+            $(".vw-codes").on("click",function () {
+                $(".ver-code").focus();
+            });
             $(".ver-code").on("focus",function (e) {
                 $(".vw-codes").children().eq(0).addClass("focus");
             }).on("keyup",function (e) {
@@ -130,7 +135,7 @@
                 var $this = $(this);
                 var $val  = $this.val();
                 var keyCode = e && e.keyCode;
-                console.log(keyCode);
+//                console.log(keyCode);
                 if(keyCode >= 65 && keyCode <= 90){
 
                 }
