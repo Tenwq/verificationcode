@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="email=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+    <style>
+        *{-webkit-tap-highlight-color:transparent;outline:0;vertical-align:baseline;}
+        body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td{margin:0;padding:0;vertical-align:baseline;}
+        html,body{height:100%;overflow:hidden;}
+        body{margin:0 auto;min-width:320px;max-width:750px;font-family:"Microsoft Yahei",arial;line-height:1;color:#333;-webkit-text-size-adjust:100% !important;text-size-adjust:100% !important;background-color:#efeff4;    width: 100%;
+            overflow-x: hidden;}
+        article,aside,dialog,figure,footer,header,hgroup,nav,section,blockquote{display:block;}
+        img{border:0 none;vertical-align:top;}
+        i,em,strong{font-style:normal;font-weight:normal;}
+        ol,ul{list-style:none;}
+        ins{text-decoration:underline;}
+        del{text-decoration:line-through;}
+        input,select,button,textarea,h1,h2,h3,h4,h5,h6{font-size:100%;font-family:inherit;font-family:"Microsoft Yahei",arial;}
+        input::-webkit-input-placeholder,
+        textarea::-webkit-input-placeholder{color: #999;}
+        input:-moz-placeholder,
+        textarea:-moz-placeholder,
+        .texts:-moz-placeholder{color:#999;}
+        input::-moz-placeholder,
+        textarea::-moz-placeholder{color:#999;}
+        input:-ms-input-placeholder,
+        textarea:-ms-input-placeholder {color:#999;}
+        h1,h2,h3,h4,h5,h6{font-weight:normal;}
+        input{border-radius:0;box-shadow:none;}
+        input[type="button"],input[type="submit"],input[type="reset"],button{-webkit-appearance:none;}
+        textarea{-webkit-appearance:none;overflow-y:auto;overflow-x:hidden;resize:none;}
+        table{border-collapse:collapse;border-spacing:0;}
+        a{text-decoration:none;color:inherit;}
+        /* 不同的屏幕的大小，为html设置不同的字体大小 */
+        html{font-size:16px;}
+        @media screen and (min-width:375px){html{/* iPhone6的375px尺寸作为16px基准，414px正好18px大小,600 20px */font-size:calc(100% + 2 * (100vw - 375px) / 39);font-size:calc(16px + 2 * (100vw - 375px) / 39);}}
+        @media screen and (min-width:414px){html{/* 414px-1000px每100像素宽字体增加1px(18px-22px) */font-size:calc(112.5% + 4 * (100vw - 414px) / 586);font-size:calc(18px + 4 * (100vw - 414px) / 586);}}
+        @media screen and (min-width:600px){html{/* 600px-1000px每100像素宽字体增加1px(20px-24px) */font-size:calc(125% + 4 * (100vw - 600px) / 400);font-size:calc(20px + 4 * (100vw - 600px) / 400);}}
+        @media screen and (min-width:1000px){html{/* 1000px往后是每100像素0.5px增加 */font-size:calc(137.5% + 6 * (100vw - 1000px) / 1000);font-size:calc(22px + 6 * (100vw - 1000px) / 1000);}}
+        .clearfix:after{content:"";display:block;clear:both;}
+        .clearfix{*zoom:1;}
+
+        .yzm-code-con{width:15rem;margin:20% auto;background-color:#fff;border-radius:0.3125rem;}
+        .yzm-code-con h4{height:2.8125rem;font-size:1rem;line-height:2.8125rem;color:#fff;text-align:center;background-image:url(../img/yanzhema-title.png);background-size:/*15.0625rem 2.8125rem*/contain;background-position:center;}
+        .yzm-code-body{padding:0.9375rem 0 0 1.5625rem;}
+        .yzm-code-list1 img{width:5.9375rem;height:2.25rem;}
+        .yzm-code-list1  a{display: inline-block;
+            /* padding-top: 1rem; */
+            color: #3c9be5;
+            text-decoration: underline;
+            margin-left: 1.5rem;
+            height: 2.25rem;
+            line-height: 2.25rem;}
+        .yzm-code-list2{margin-top:0.9375rem;font-size:0;}
+        .yzm-code-list2 input{font-size:1rem;width:2.0625rem;height:2.0625rem;display:inline-block;border:1px solid #e0e0e0;border-radius:3px;text-align:center;}
+        .yzm-code-list2 .current{border-color:#ffa200;}
+        .yzm-code-list2 input+input{margin-left:1.125rem;}
+        .yzm-code-footer{padding:0.9375rem 0;overflow:hidden;text-align:center;}
+        .yzm-code-footer a{font-size:1rem;line-height:1rem;display:block;float:left;width:50%;box-sizing:border-box;}
+        .yzm-code-footer a{color:#666;}
+        .yzm-code-footer a:last-child{color:#ffa800;}
+        .yzm-code-footer a+a{border-left:1px solid #e0e0e0;}
+    </style>
+</head>
+<body>
+<div class="zj-layer Js-yzm-code-leyer">
+    <div class="yzm-code-con">
+        <h4>请输入图片验证码</h4>
+        <div class="yzm-code-body">
+            <div class="yzm-code-list1">
+                <img id="img" src="http://221.226.62.39:8011/claim_css/authImage?date=Sat Dec 23 2017 11:28:46 GMT+0800 (CST)" alt="">
+                <a href="javascript:;" onclick="flushCode()">换一换</a>
+            </div>
+            <div class="yzm-code-list2">
+                <input type="text" name="code[]" class="now" maxlength="1">
+                <input type="text" name="code[]" class="now" maxlength="1">
+                <input type="text" name="code[]" class="now" maxlength="1">
+                <input type="text" name="code[]" class="now" maxlength="1">
+            </div>
+        </div>
+        <div class="yzm-code-footer">
+            <a class="cancal-btn" href="javascript:;">取消</a> <a class="confirm-btn" href="javascript:;">确定</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
