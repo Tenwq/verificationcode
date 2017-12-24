@@ -47,7 +47,9 @@
         .clearfix{*zoom:1;}
 
         .yzm-code-con{width:15rem;margin:20% auto;background-color:#fff;border-radius:0.3125rem;}
-        .yzm-code-con h4{height:2.8125rem;font-size:1rem;line-height:2.8125rem;color:#fff;text-align:center;background-image:url(../img/yanzhema-title.png);background-size:/*15.0625rem 2.8125rem*/contain;background-position:center;}
+        .yzm-code-con h4{height:2.8125rem;font-size:1rem;line-height:2.8125rem;color:#fff;text-align:center;
+            /*background-image:url(../img/yanzhema-title.png);background-size:!*15.0625rem 2.8125rem*!contain;background-position:center;*/
+        }
         .yzm-code-body{padding:0.9375rem 1.5625rem;}
         .yzm-code-list1 img{width:5.9375rem;height:2.25rem;}
         .yzm-code-list1  a{display: inline-block;
@@ -89,15 +91,15 @@
             }
         }
         .yzm-code-list2 .current{border-color:#ffa200;}
-        .yzm-code-list2 input+input{margin-left:1.125rem;}
+        /*.yzm-code-list2 input+input{margin-left:1.125rem;}*/
         .yzm-code-footer{padding:0.9375rem 0;overflow:hidden;text-align:center;}
         .yzm-code-footer a{font-size:1rem;line-height:1rem;display:block;float:left;width:50%;box-sizing:border-box;}
         .yzm-code-footer a{color:#666;}
         .yzm-code-footer a:last-child{color:#ffa800;}
         .yzm-code-footer a+a{border-left:1px solid #e0e0e0;}
-        .ver-code{position:absolute;width:100%;height:2.188rem;opacity:0;border:0;top:-9999px;left:0;
-            background-color:transparent;
-            color: transparent;}
+        /*.ver-code{position:absolute;width:100%;height:2.188rem;opacity:0;border:0;top:-9999px;left:0;*/
+            /*background-color:transparent;*/
+            /*color: transparent;}*/
     </style>
 </head>
 <body>
@@ -114,7 +116,7 @@
                 <input type="text" name="code[]" class="now" maxlength="1">
                 <input type="text" name="code[]" class="now" maxlength="1">
                 <input type="text" name="code[]" class="now" maxlength="1">-->
-                <p class="vw-codes"><span class="vw-code wait"></span><span class="vw-code"></span><span class="vw-code"></span><span class="vw-code"></span></p>
+                <p class="vw-codes"><span class="vw-code"></span><span class="vw-code"></span><span class="vw-code"></span><span class="vw-code"></span></p>
                 <input type="text" name="code" class="ver-code" maxlength="4" />
             </div>
         </div>
@@ -129,15 +131,26 @@
                 $(".ver-code").focus();
             });
             $(".ver-code").on("focus",function (e) {
-                $(".vw-codes").children().eq(0).addClass("focus");
-            }).on("keyup",function (e) {
+                var $this = $(this),
+                    $val  = $this.val();
+                if($val){
+                    $(".vw-codes").children().eq($val.length).addClass("focus");
+                }
+            }).on("input",function (e) {
+//                console.log(e)
+//                var reg = /^[0-9a-zA-Z]+$/;
                 var e = event || window.event || arguments.callee.caller.arguments[0];
                 var $this = $(this);
                 var $val  = $this.val();
                 var keyCode = e && e.keyCode;
-//                console.log(keyCode);
-                if(keyCode >= 65 && keyCode <= 90){
-
+                console.log(keyCode);
+//                console.log(keyCode >= 65 && keyCode <= 90);
+//                if(!reg.test($val)){
+//
+//                }
+                console.log($val.length);
+                if($val.length > 4){
+                    return false;
                 }
                 if(keyCode != 8){
                     if($val.length == 1){
@@ -153,8 +166,17 @@
                         $(".vw-codes").children(".vw-code").eq(3).removeClass("wait focus").text($val.substring(3,4));
                     }
                 }else{
+                    console.log("else:"+keyCode);
+                    var l = $val.length;
+                    console.log("长度："+l);
+                    $(".vw-codes").children(".vw-code").eq(l-1).addClass("focus");
                     for(var i = 0;i<$val.length;i++){
-                        $(".vw-codes").children(".vw-code").eq(i).text("");
+                        console.log("i:"+i);
+//                      $(".vw-codes").children(".vw-code").text("");
+                        $(".vw-codes").children(".vw-code").eq(i).text($val[i]);
+                        $(".vw-codes").children(".vw-code").removeClass("focus");
+//                        $(".vw-codes").children(".vw-code").eq(l);
+                        $(".vw-codes").children(".vw-code").eq(l).text("").addClass("focus");
                     }
                 }
 
