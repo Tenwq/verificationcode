@@ -132,9 +132,15 @@
             });
             $(".ver-code").on("focus",function (e) {
                 var $this = $(this),
-                    $val  = $this.val();
+                    $val  = $this.val(),
+                    $len = $val.length;
+                console.log($val);
                 if($val){
-                    $(".vw-codes").children().eq($val.length).addClass("focus");
+                    if($len == 4){
+                        $(".vw-codes").children().eq($len - 1).addClass("focus")
+                    }else{
+                        $(".vw-codes").children().eq($len).addClass("focus");
+                    }
                 }
             }).on("input",function (e) {
 //                console.log(e)
@@ -172,7 +178,7 @@
                     $(".vw-codes").children(".vw-code").eq(l-1).addClass("focus");
                     for(var i = 0;i<$val.length;i++){
                         console.log("i:"+i);
-//                      $(".vw-codes").children(".vw-code").text("");
+                      $(".vw-codes").children(".vw-code").text("");
                         $(".vw-codes").children(".vw-code").eq(i).text($val[i]);
                         $(".vw-codes").children(".vw-code").removeClass("focus");
 //                        $(".vw-codes").children(".vw-code").eq(l);
